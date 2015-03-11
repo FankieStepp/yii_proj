@@ -1,51 +1,49 @@
 <?php
+use yii\helpers\Html;
+
 /* @var $this yii\web\View */
-$this->title = 'My Yii Application';
+$this->title = 'Список книг';
+$this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="site-index">
+<div class="site-about">
+	<h3>Добро пожаловать в систему управления корпоративной библиотекой. Система позволяет добавлять книги, добавлять авторов,
+	привязывать авторов к книгам, добавлять читателей, а также привязывать и отвязывать книги к соответствующим читателям.
+	
+	</h3>
+    <h1><?= Html::encode($this->title) ?> </h1>
+	 <div style="float: right;margin: 5px;"> <?php echo Html::a('Добавить книгу', array('books/create'), ['class'=>'btn btn-primary']); ?></div><br>
+	 
+	
+	 
+	<table class="table table-striped table-hover">
+    <tr>
+        <td>#</td>
+        <td>Название</td>
+		<td>Авторы</td>
+        <td>Добавлен</td>
+        <td>Изменен</td>
+		<td></td>
+    </tr>
+    <?php foreach ($data as $author): ?>
+        <tr>
+            <td>
+                <?php echo Html::a($author->id, array('books/read', 'id'=>$author->id)); ?>
+            </td>
+            <td><?php echo Html::a($author->name, array('books/read', 'id'=>$author->id)); ?></td>
+			<td><?php echo $author->getAuthors($author->id); ?></td>
+            <td><?php echo $author->creat; ?></td>
+             <td><?php echo $author->upd; ?></td>
+			 <td><?php if ($author->reader) echo "Книга занята"; ?></td>
 
-    <div class="jumbotron">
-        <h1>Congratulations!</h1>
+        </tr>
+    <?php endforeach; ?>
+	</table>
 
-        <p class="lead">You have successfully created your Yii-powered application.</p>
+	<hr>
+	<h3>Отчеты</h3>
+	<?php echo Html::a("&curren; Спискок авторов, чьи книги в данный момент читает более трех читателей", array('report/index')); ?><br><br>
+	<?php echo Html::a("&curren; Список книг, находящихся на руках у читателей, и имеющих не менее трех со-авторов.", array('report/index2')); ?><br><br>
+	<?php echo Html::a("&curren; Пять случайных книг", array('report/random')); ?><br><br>
 
-        <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
-    </div>
-
-    <div class="body-content">
-
-        <div class="row">
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/forum/">Yii Forum &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>
-            </div>
-        </div>
-
-    </div>
+    <code><?= __FILE__ ?></code>
 </div>
